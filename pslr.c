@@ -1228,12 +1228,17 @@ const char *pslr_camera_name(pslr_handle_t h) {
     ipslr_handle_t *p = (ipslr_handle_t *) h;
     int ret;
     if (p->id == 0) {
+    DPRINT("[C]\tpslr_camera_name() : p->id == 0\n");
         ret = ipslr_identify(p);
         if (ret != PSLR_OK) {
             return NULL;
         }
     }
+    DPRINT("[C]\tpslr_camera_name() : p->id didn't worked %d\n", p->id);
     if (p->model) {
+    DPRINT("[C]\tpslr_camera_name() : return p->model\n");
+    DPRINT("[C]\tpslr_camera_name() : return p->model %d\n", (int)p->model->name);
+    DPRINT("[C]\tpslr_camera_name() : return p->model %s\n", p->model->name);
         return p->model->name;
     } else {
         static char unk_name[256];
