@@ -2,8 +2,10 @@
 *.o
 /pktriggercord
 /pktriggercord-cli
+/pktriggercord-*-win
 *~
 *.exe
+libpslr.*
 /pktriggercord_commandline.html
 /pktriggercord-*-win.zip
 /pkTriggerCord-*.src.tar.gz
