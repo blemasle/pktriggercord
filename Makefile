@@ -40,6 +40,7 @@ LIN_GUI_CFLAGS=$(CFLAGS) $(shell pkg-config --cflags gtk+-2.0 gmodule-2.0) -DGTK
 default: cli pktriggercord
 all: srczip rpm win pktriggercord_commandline.html
 cli: pktriggercord-cli
+lib: pktriggercord-lib
 
 MANS = pktriggercord-cli.1 pktriggercord.1
 SRCOBJNAMES = pslr pslr_enum pslr_scsi pslr_lens pslr_model pktriggercord-servermode
@@ -58,6 +59,9 @@ pslr.o: pslr_enum.o pslr_scsi.o pslr.c pslr.h
 
 pktriggercord-cli: pktriggercord-cli.c $(OBJS)
 	$(CC) $(LIN_CFLAGS) $^ -DVERSION='"$(VERSION)"' -o $@ $(LIN_LDFLAGS) -L.
+
+pktriggercord-lib: pktriggercord-lib.c $(OBJS)
+	$(CC) $(LIN_CFLAGS) $^ -DVERSION='"$(VERSION)"' $(LIN_LDFLAGS) -shared -o libpslr.so -L.
 
 pslr_scsi.o: pslr_scsi_win.c pslr_scsi_linux.c pslr_scsi_openbsd.c
 
@@ -94,7 +98,7 @@ install: pktriggercord-cli pktriggercord
 
 clean:
 	rm -f pktriggercord pktriggercord-cli *.o $(JSONDIR)/*.o
-	rm -f pktriggercord.exe pktriggercord-cli.exe libpslr.dll
+	rm -f pktriggercord.exe pktriggercord-cli.exe libpslr.dll libpslr.so
 	rm -f *.orig
 
 uninstall:
